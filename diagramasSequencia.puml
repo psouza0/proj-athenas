@@ -1,0 +1,152 @@
+@startuml
+' UC001 - Login
+actor UsuarioNaoLogado
+participant "TelaLogin : Boundary" as Tela
+participant "ControleAutenticacao : Control" as Controle
+participant "GoogleOAuth : External System" as OAuth
+participant "Usuario : Entity" as Usuario
+
+UsuarioNaoLogado -> Tela : acessarTelaLogin()
+Tela -> UsuarioNaoLogado : exibeFormularioLogin()
+UsuarioNaoLogado -> Tela : preencherCredenciais()
+Tela -> Controle : requisitaAutenticacao(dados)
+Controle -> OAuth : autenticarComGoogle(dados)
+OAuth --> Controle : tokenValido / dadosUsuario
+Controle -> Usuario : buscarOuCriarUsuario(dadosUsuario)
+Usuario --> Controle : usuarioEncontrado
+Controle -> Tela : autenticarSucesso()
+Tela -> UsuarioNaoLogado : redirecionarDashboard()
+@enduml
+
+@startuml
+' UC002 - Recuperar Senha
+actor UsuarioNaoLogado
+participant "TelaRecuperarSenha : Boundary" as Tela
+participant "ControleAutenticacao : Control" as Controle
+participant "GoogleOAuth : External System" as OAuth
+
+UsuarioNaoLogado -> Tela : acessarRecuperarSenha()
+Tela -> UsuarioNaoLogado : exibeOpcaoRecuperar()
+UsuarioNaoLogado -> Tela : solicitarRecuperacao()
+Tela -> Controle : requisitaRecuperacao(email)
+Controle -> OAuth : redirecionaParaGoogleRecuperacao(email)
+OAuth --> Controle : confirmacaoEmailEnviado()
+Controle -> Tela : informaSucesso()
+Tela -> UsuarioNaoLogado : mostraMensagemConfirmacao()
+@enduml
+
+@startuml
+' UC003 - Logout
+actor UsuarioLogado
+participant "TelaPrincipal : Boundary" as Tela
+participant "ControleAutenticacao : Control" as Controle
+
+UsuarioLogado -> Tela : clicarLogout()
+Tela -> Controle : requisitaLogout()
+Controle -> Controle : invalidarSessao()
+Controle -> Tela : logoutSucesso()
+Tela -> UsuarioLogado : redirecionaTelaLogin()
+@enduml
+
+@startuml
+' UC004 - Cadastrar Perfil
+actor UsuarioLogado
+participant "TelaCadastroPerfil : Boundary" as Tela
+participant "ControleCadastroPerfil : Control" as Controle
+participant "Usuario : Entity" as Usuario
+
+UsuarioLogado -> Tela : acessarCadastroPerfil()
+Tela -> UsuarioLogado : exibeFormulario()
+UsuarioLogado -> Tela : preencherDadosPerfil()
+Tela -> Controle : enviarCadastro(dados)
+Controle -> Usuario : salvarPerfil(dados)
+Usuario --> Controle : perfilCriado()
+Controle -> Tela : cadastroSucesso()
+Tela -> UsuarioLogado : mostraConfirmacao()
+@enduml
+
+@startuml
+' UC005 - Aprovar Cadastro
+actor Admin
+participant "TelaAprovacaoCadastro : Boundary" as Tela
+participant "ControleAprovacaoCadastro : Control" as Controle
+participant "Usuario : Entity" as Usuario
+
+Admin -> Tela : acessarPendentes()
+Tela -> Controle : listarPendentes()
+Controle -> Usuario : buscarPendentes()
+Usuario --> Controle : listaUsuarios()
+Controle -> Tela : exibeLista()
+Admin -> Tela : aprovarOuRecusar()
+Tela -> Controle : processarDecisao(usuarioId, decisao)
+Controle -> Usuario : atualizarStatus(usuarioId, decisao)
+Usuario --> Controle : statusAtualizado()
+Controle -> Tela : resultado()
+Tela -> Admin : mostraConfirmacao()
+@enduml
+
+@startuml
+' UC006 - Cadastrar Estágio
+actor Aluno
+participant "TelaCadastroEstagio : Boundary" as Tela
+participant "ControleEstagio : Control" as Controle
+participant "Estagio : Entity" as Estagio
+
+Aluno -> Tela : acessarFormularioEstagio()
+Tela -> Aluno : exibeFormulario()
+Aluno -> Tela : preencherDadosEstagio()
+Tela -> Controle : submeterEstagio(dados)
+Controle -> Estagio : criarEstagio(dados)
+Estagio --> Controle : estagioCriado()
+Controle -> Tela : exibeConfirmacao()
+Tela -> Aluno : mostraMensagemSucesso()
+@enduml
+
+@startuml
+' UC007 - Solicitar Orientador
+actor Aluno
+participant "TelaSolicitarOrientador : Boundary" as Tela
+participant "ControleEstagio : Control" as Controle
+participant "Estagio : Entity" as Estagio
+
+Aluno -> Tela : acessarSolicitacao()
+Tela -> Aluno : listarOrientadoresDisponiveis()
+Aluno -> Tela : selecionarOrientador()
+Tela -> Controle : enviarSolicitacao(orientador)
+Controle -> Estagio : registrarSolicitacaoOrientador(orientador)
+Estagio --> Controle : solicitacaoRegistrada()
+Controle -> Tela : confirmaSolicitacao()
+Tela -> Aluno : mensagemSolicitacaoEnviada()
+@enduml
+
+@startuml
+' UC008 - Enviar Documentação
+actor Aluno
+participant "TelaDocumentos : Boundary" as Tela
+participant "ControleEstagio : Control" as Controle
+participant "DocumentoEstagio : Entity" as Documento
+
+Aluno -> Tela : acessarUpload()
+Tela -> Aluno : selecionarDocumento()
+Aluno -> Tela : enviarDocumento()
+Tela -> Controle : processarDocumento(dados)
+Controle -> Documento : armazenarDocumento(dados)
+Documento --> Controle : documentoSalvo()
+Controle -> Tela : confirmaUpload()
+Tela -> Aluno : exibeMensagemSucesso()
+@enduml
+
+@startuml
+' UC009 - Visualizar Alunos com Estágio Ativo
+actor CoordenadorEstagio
+participant "TelaAlunosEstagio : Boundary" as Tela
+participant "ControleEstagio : Control" as Controle
+participant "Estagio : Entity" as Estagio
+
+CoordenadorEstagio -> Tela : acessarListaEstagios()
+Tela -> Controle : requisitarListaAtivos()
+Controle -> Estagio : buscarEstagiosAtivos()
+Estagio --> Controle : retornaLista()
+Controle -> Tela : exibirLista()
+Tela -> CoordenadorEstagio : mostrarAlunos()
+@enduml
