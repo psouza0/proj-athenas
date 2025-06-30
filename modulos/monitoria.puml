@@ -1,0 +1,135 @@
+@startuml
+' Configurações visuais
+skinparam classAttributeIconSize 0
+skinparam classFontSize 12
+skinparam classAttributeFontSize 11
+skinparam classMethodFontSize 11
+
+' Entidades (Entity)
+class Disciplina {
+
+id: int
+
+nome: string
+
+codigo: string
+
+professorResponsavel: Professor
+}
+
+class VagaMonitoria {
+
+id: int
+
+disciplina: Disciplina
+
+descricao: string
+
+status: string
+
+dataPublicacao: date
+}
+
+class CandidaturaMonitoria {
+
+id: int
+
+aluno: Aluno
+
+vaga: VagaMonitoria
+
+dataInscricao: date
+
+status: string
+}
+
+class AtividadeMonitoria {
+
+id: int
+
+monitor: Monitor
+
+descricao: string
+
+dataCriacao: date
+
+avaliacaoProfessor: string
+}
+
+class DocumentoMonitoria {
+
+id: int
+
+tipo: string
+
+arquivo: string
+
+aluno: Aluno
+
+professor: Professor
+
+assinaturas: AssinaturaDigital[]
+}
+
+' Fronteiras (Boundary)
+class TelaCandidaturaMonitoria {
+
+exibirVagas(): void
+
+candidatar(vagaId: int): void
+
+visualizarStatus(): void
+}
+
+class TelaGerenciarVagasMonitoria {
+
+criarVaga(disciplinaId: int, descricao: string): void
+
+fecharVaga(vagaId: int): void
+
+visualizarCandidatos(vagaId: int): void
+
+avaliarCandidato(candidaturaId: int, status: string): void
+}
+
+class TelaSubmissaoDocumentoMonitoria {
+
+enviarDocumento(tipo: string, arquivo: string): void
+
+visualizarDocumentos(): void
+}
+
+class TelaAtividadesMonitoria {
+
+criarAtividade(descricao: string): void
+
+avaliarAtividade(atividadeId: int, avaliacao: string): void
+}
+
+' Controle (Control)
+class ControleMonitoria {
+
+listarVagasDisponiveis(): VagaMonitoria[]
+
+registrarCandidatura(alunoId: int, vagaId: int): void
+
+avaliarCandidatura(candidaturaId: int, status: string): void
+
+gerenciarVaga(vagaId: int, acao: string): void
+
+enviarDocumento(alunoId: int, tipo: string, arquivo: string): void
+
+cadastrarAtividade(monitorId: int, descricao: string): void
+
+avaliarAtividade(atividadeId: int, avaliacao: string): void
+}
+
+' Relações
+Disciplina "1" -- "0.." VagaMonitoria
+VagaMonitoria "1" -- "0.." CandidaturaMonitoria
+CandidaturaMonitoria "1" -- "1" Aluno
+AtividadeMonitoria "1" -- "1" Monitor
+DocumentoMonitoria "1" -- "1" Aluno
+DocumentoMonitoria "1" -- "1" Professor
+
+@enduml

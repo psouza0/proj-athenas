@@ -1,0 +1,145 @@
+@startuml
+' Estilo
+skinparam classAttributeIconSize 0
+skinparam classFontSize 12
+skinparam classAttributeFontSize 11
+skinparam classMethodFontSize 11
+
+' =======================
+' ENTITY
+' =======================
+
+class Estagio {
+
+id: int
+
+aluno: Aluno
+
+empresa: string
+
+tipo: string
+
+status: string
+
+dataInicio: date
+
+dataFim: date
+}
+
+class SolicitacaoOrientadorEstagio {
+
+id: int
+
+estagio: Estagio
+
+orientador: Professor
+
+status: string
+
+dataSolicitacao: date
+}
+
+class RelatorioEstagio {
+
+id: int
+
+estagio: Estagio
+
+arquivo: string
+
+dataEnvio: date
+
+avaliacao: string
+}
+
+class DocumentoEstagio {
+
+id: int
+
+tipo: string
+
+arquivo: string
+
+aluno: Aluno
+
+orientador: Professor
+
+assinaturas: AssinaturaDigital[]
+}
+
+' =======================
+' BOUNDARY
+' =======================
+
+class TelaCadastroEstagio {
+
+cadastrarEstagio(empresa: string, tipo: string): void
+
+visualizarEstagio(): void
+}
+
+class TelaSolicitacaoOrientadorEstagio {
+
+solicitarOrientador(professorId: int): void
+
+acompanharSolicitacao(): void
+}
+
+class TelaRelatorioEstagio {
+
+enviarRelatorio(arquivo: string): void
+
+visualizarRelatorio(): void
+}
+
+class TelaDocumentosEstagio {
+
+enviarDocumento(tipo: string, arquivo: string): void
+
+visualizarDocumentos(): void
+}
+
+class TelaAprovacaoEstagio {
+
+aprovarEstagio(estagioId: int): void
+
+recusarEstagio(estagioId: int, motivo: string): void
+}
+
+class TelaAvaliacaoRelatorioEstagio {
+
+avaliarRelatorio(relatorioId: int, avaliacao: string): void
+}
+
+' =======================
+' CONTROL
+' =======================
+
+class ControleEstagio {
+
+registrarEstagio(alunoId: int, dados: Estagio): void
+
+solicitarOrientador(estagioId: int, professorId: int): void
+
+aprovarEstagio(estagioId: int): void
+
+recusarEstagio(estagioId: int, motivo: string): void
+
+avaliarRelatorio(relatorioId: int, avaliacao: string): void
+
+enviarDocumento(alunoId: int, tipo: string, arquivo: string): void
+}
+
+' =======================
+' RELACIONAMENTOS
+' =======================
+
+Estagio "1" -- "1" Aluno
+Estagio "1" -- "0.." SolicitacaoOrientadorEstagio
+Estagio "1" -- "0.." RelatorioEstagio
+RelatorioEstagio "1" -- "1" Estagio
+DocumentoEstagio "1" -- "1" Aluno
+DocumentoEstagio "1" -- "1" Professor
+SolicitacaoOrientadorEstagio "1" -- "1" Professor
+
+@enduml
