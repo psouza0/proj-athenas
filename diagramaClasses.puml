@@ -1,0 +1,246 @@
+@startuml
+skinparam classAttributeIconSize 0
+skinparam classFontSize 12
+skinparam classAttributeFontSize 11
+skinparam classMethodFontSize 11
+
+'======================
+'     ENTIDADES COMUNS
+'======================
+
+class Aluno {
+  - id: int
+  - nome: string
+  - email: string
+}
+
+class Professor {
+  - id: int
+  - nome: string
+  - email: string
+}
+
+class Coordenador {
+  - id: int
+  - nome: string
+  - area: string
+}
+
+'======================
+'      MONITORIA
+'======================
+
+class EditalMonitoria {
+  - id: int
+  - semestre: string
+  - dataPublicacao: date
+  - observacoes: string
+}
+
+class VagaMonitoria {
+  - id: int
+  - disciplina: string
+  - professor: Professor
+  - quantidade: int
+  - edital: EditalMonitoria
+}
+
+class CandidaturaMonitoria {
+  - id: int
+  - aluno: Aluno
+  - vaga: VagaMonitoria
+  - status: string
+}
+
+class RelatorioMonitoria {
+  - id: int
+  - aluno: Aluno
+  - professor: Professor
+  - periodo: string
+  - conteudo: string
+}
+
+class TelaCadastroVagaMonitoria {
+  + criarVaga(): void
+  + visualizarVagas(): void
+}
+
+class TelaCandidaturaMonitoria {
+  + candidatar(): void
+  + acompanharStatus(): void
+}
+
+class TelaAvaliacaoCandidaturas {
+  + aprovarCandidatura(): void
+  + recusarCandidatura(): void
+}
+
+class TelaRelatorioMonitoria {
+  + enviarRelatorio(): void
+  + consultarRelatorio(): void
+}
+
+class ControleMonitoria {
+  + criarVaga(): void
+  + candidatar(): void
+  + avaliarCandidatura(): void
+  + registrarRelatorio(): void
+}
+
+' RELAÇÕES MONITORIA
+EditalMonitoria "1" -- "0..*" VagaMonitoria
+VagaMonitoria "1" -- "1" Professor
+VagaMonitoria "1" -- "0..*" CandidaturaMonitoria
+CandidaturaMonitoria "1" -- "1" Aluno
+CandidaturaMonitoria "1" -- "1" VagaMonitoria
+RelatorioMonitoria "1" -- "1" Aluno
+RelatorioMonitoria "1" -- "1" Professor
+
+'======================
+'       ESTÁGIO
+'======================
+
+class Estagio {
+  - id: int
+  - aluno: Aluno
+  - empresa: string
+  - tipo: string
+  - status: string
+  - orientador: Professor
+}
+
+class DocumentoEstagio {
+  - id: int
+  - tipo: string
+  - arquivo: string
+  - status: string
+  - aluno: Aluno
+  - assinaturaOrientador: bool
+}
+
+class TelaCadastroEstagio {
+  + cadastrarEstagio(): void
+  + visualizarEstagio(): void
+}
+
+class TelaSolicitacaoOrientacaoEstagio {
+  + solicitarOrientador(): void
+  + acompanharSolicitacao(): void
+}
+
+class TelaAvaliacaoEstagio {
+  + avaliarEstagio(): void
+  + aprovarEstagio(): void
+}
+
+class TelaDocumentosEstagio {
+  + enviarDocumento(): void
+  + assinarDocumento(): void
+}
+
+class ControleEstagio {
+  + cadastrarEstagio(): void
+  + solicitarOrientador(): void
+  + avaliarEstagio(): void
+  + enviarDocumento(): void
+}
+
+' RELAÇÕES ESTÁGIO
+Estagio "1" -- "1" Aluno
+Estagio "1" -- "1" Professor
+Estagio "1" -- "0..*" DocumentoEstagio
+DocumentoEstagio "1" -- "1" Aluno
+
+'======================
+'         TCC
+'======================
+
+class TCC {
+  - id: int
+  - aluno: Aluno
+  - orientador: Professor
+  - tema: string
+  - status: string
+  - dataInicio: date
+  - dataConclusao: date
+}
+
+class DocumentoTCC {
+  - id: int
+  - tipo: string
+  - arquivo: string
+  - dataEnvio: date
+  - aluno: Aluno
+  - orientador: Professor
+  - status: string
+  - assinaturaOrientador: bool
+}
+
+class EditalTCC {
+  - id: int
+  - ano: int
+  - semestre: int
+  - dataPublicacao: date
+  - observacoes: string
+}
+
+class OfertaTemaOrientador {
+  - id: int
+  - orientador: Professor
+  - tema: string
+  - disponivel: bool
+}
+
+class ReuniaoTCC {
+  - id: int
+  - tcc: TCC
+  - dataHora: datetime
+  - local: string
+  - observacoes: string
+}
+
+class TelaSubmissaoDocumentosTCC {
+  + enviarDocumento(): void
+  + visualizarDocumentos(): void
+}
+
+class TelaSolicitacaoOrientacaoTCC {
+  + solicitarOrientacao(): void
+  + acompanharSolicitacao(): void
+}
+
+class TelaGestaoEditalTCC {
+  + publicarEdital(): void
+  + visualizarEdital(): void
+}
+
+class TelaAgendaReunioesTCC {
+  + agendarReuniao(): void
+  + visualizarReunioes(): void
+}
+
+class TelaAvaliacaoDocumentosTCC {
+  + avaliarDocumento(): void
+}
+
+class ControleTCC {
+  + submeterDocumento(): void
+  + avaliarDocumento(): void
+  + criarEdital(): void
+  + oferecerTema(): void
+  + solicitarOrientacao(): void
+  + agendarReuniao(): void
+}
+
+' RELAÇÕES TCC
+TCC "1" -- "1" Aluno
+TCC "1" -- "1" Professor
+TCC "1" -- "0..*" DocumentoTCC
+TCC "1" -- "0..*" ReuniaoTCC
+DocumentoTCC "1" -- "1" Aluno
+DocumentoTCC "1" -- "1" Professor
+EditalTCC "1" -- "0..*" OfertaTemaOrientador
+OfertaTemaOrientador "1" -- "1" Professor
+ReuniaoTCC "1" -- "1" TCC
+
+@enduml
