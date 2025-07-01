@@ -29,8 +29,8 @@ Seu objetivo é integrar e gerenciar, em uma única plataforma, os módulos de *
 ## 📈 Status do Projeto
 - [x] Definição de requisitos iniciais
 - [x] Modelagem de casos de uso
-- [ ] Modelagem de classes
-- [ ] Início do projeto de software
+- [x] Modelagem de classes
+- [x] Início do projeto de software
 - [ ] Desenvolvimento da aplicação
 
 ## 🤝 Contribuidores
