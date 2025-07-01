@@ -1,5 +1,5 @@
 @startuml
-' UC001 - Login
+'title UC001 - Login
 actor UsuarioNaoLogado
 participant "TelaLogin : Boundary" as Tela
 participant "ControleAutenticacao : Control" as Controle
@@ -19,7 +19,7 @@ Tela -> UsuarioNaoLogado : redirecionarDashboard()
 @enduml
 
 @startuml
-' UC002 - Recuperar Senha
+'title UC002 - Recuperar Senha
 actor UsuarioNaoLogado
 participant "TelaRecuperarSenha : Boundary" as Tela
 participant "ControleAutenticacao : Control" as Controle
@@ -36,7 +36,7 @@ Tela -> UsuarioNaoLogado : mostraMensagemConfirmacao()
 @enduml
 
 @startuml
-' UC003 - Logout
+'title UC003 - Logout
 actor UsuarioLogado
 participant "TelaPrincipal : Boundary" as Tela
 participant "ControleAutenticacao : Control" as Controle
@@ -49,7 +49,7 @@ Tela -> UsuarioLogado : redirecionaTelaLogin()
 @enduml
 
 @startuml
-' UC004 - Cadastrar Perfil
+'title UC004 - Cadastrar Perfil
 actor UsuarioLogado
 participant "TelaCadastroPerfil : Boundary" as Tela
 participant "ControleCadastroPerfil : Control" as Controle
@@ -66,7 +66,7 @@ Tela -> UsuarioLogado : mostraConfirmacao()
 @enduml
 
 @startuml
-' UC005 - Aprovar Cadastro
+'title UC005 - Aprovar Cadastro
 actor Admin
 participant "TelaAprovacaoCadastro : Boundary" as Tela
 participant "ControleAprovacaoCadastro : Control" as Controle
@@ -86,7 +86,7 @@ Tela -> Admin : mostraConfirmacao()
 @enduml
 
 @startuml
-' UC006 - Cadastrar Estágio
+'title UC006 - Cadastrar Estágio
 actor Aluno
 participant "TelaCadastroEstagio : Boundary" as Tela
 participant "ControleEstagio : Control" as Controle
@@ -103,7 +103,7 @@ Tela -> Aluno : mostraMensagemSucesso()
 @enduml
 
 @startuml
-' UC007 - Solicitar Orientador
+'title UC007 - Solicitar Orientador
 actor Aluno
 participant "TelaSolicitarOrientador : Boundary" as Tela
 participant "ControleEstagio : Control" as Controle
@@ -120,7 +120,7 @@ Tela -> Aluno : mensagemSolicitacaoEnviada()
 @enduml
 
 @startuml
-' UC008 - Enviar Documentação
+'title UC008 - Enviar Documentação
 actor Aluno
 participant "TelaDocumentos : Boundary" as Tela
 participant "ControleEstagio : Control" as Controle
@@ -137,7 +137,7 @@ Tela -> Aluno : exibeMensagemSucesso()
 @enduml
 
 @startuml
-' UC009 - Visualizar Alunos com Estágio Ativo
+'title UC009 - Visualizar Alunos com Estágio Ativo
 actor CoordenadorEstagio
 participant "TelaAlunosEstagio : Boundary" as Tela
 participant "ControleEstagio : Control" as Controle
@@ -152,7 +152,7 @@ Tela -> CoordenadorEstagio : mostrarAlunos()
 @enduml
 
 @startuml
-' UC010 - Aceitar/Recusar Solicitação de Orientação
+'title UC010 - Aceitar/Recusar Solicitação de Orientação
 actor CoordenadorEstagio
 participant "TelaSolicitacoes : Boundary" as Tela
 participant "ControleSolicitacoes : Control" as Controle
@@ -172,7 +172,7 @@ Tela -> CoordenadorEstagio : exibeConfirmacao()
 @enduml
 
 @startuml
-' UC011 - Enviar Trabalho Acadêmico
+'title UC011 - Enviar Trabalho Acadêmico
 actor Aluno
 participant "TelaSubmissaoTrabalho : Boundary" as Tela
 participant "ControleTCC : Control" as Controle
@@ -189,7 +189,7 @@ Tela -> Aluno : mensagemSucesso()
 @enduml
 
 @startuml
-' UC012 - Avaliar Trabalho Acadêmico
+'title UC012 - Avaliar Trabalho Acadêmico
 actor OrientadorTCC
 participant "TelaAvaliacao : Boundary" as Tela
 participant "ControleTCC : Control" as Controle
@@ -209,7 +209,7 @@ Tela -> OrientadorTCC : mensagemConfirmacao()
 @enduml
 
 @startuml
-' UC013 - Assinar Documentos
+'title UC013 - Assinar Documentos
 actor CoordenadorTCC
 participant "TelaAssinatura : Boundary" as Tela
 participant "ControleDocumentos : Control" as Controle
@@ -229,7 +229,7 @@ Tela -> CoordenadorTCC : mostraConfirmacao()
 @enduml
 
 @startuml
-' UC014 - Submeter Vaga de Monitoria
+'title UC014 - Submeter Vaga de Monitoria
 actor Professor
 participant "TelaVagaMonitoria : Boundary" as Tela
 participant "ControleMonitoria : Control" as Controle
@@ -246,7 +246,7 @@ Tela -> Professor : mensagemSucesso()
 @enduml
 
 @startuml
-' UC015 - Criar Atividade de Monitoria
+'title UC015 - Criar Atividade de Monitoria
 actor Monitor
 participant "TelaAtividadeMonitoria : Boundary" as Tela
 participant "ControleMonitoria : Control" as Controle
@@ -263,7 +263,7 @@ Tela -> Monitor : mensagemSucesso()
 @enduml
 
 @startuml
-' UC016 - Responder Atividade de Monitoria
+'title UC016 - Responder Atividade de Monitoria
 actor Aluno
 participant "TelaAtividade : Boundary" as Tela
 participant "ControleMonitoria : Control" as Controle
@@ -283,7 +283,7 @@ Tela -> Aluno : mensagemConfirmacao()
 @enduml
 
 @startuml
-' UC017 - Criar Vaga
+'title UC017 - Criar Vaga
 actor OrientadorEstagio
 participant "TelaCriarVaga : Boundary" as Tela
 participant "ControleEstagio : Control" as Controle
@@ -300,7 +300,7 @@ Tela -> OrientadorEstagio : mensagemSucesso()
 @enduml
 
 @startuml
-' UC018 - Lançar Edital de Vagas
+'title UC018 - Lançar Edital de Vagas
 actor CoordenadorMonitoria
 participant "TelaLancarEdital : Boundary" as Tela
 participant "ControleMonitoria : Control" as Controle
@@ -317,7 +317,7 @@ Tela -> CoordenadorMonitoria : mensagemSucesso()
 @enduml
 
 @startuml
-' UC019 - Listar Disciplinas Monitoradas
+'title UC019 - Listar Disciplinas Monitoradas
 actor Monitor
 participant "TelaDisciplinasMonitoradas : Boundary" as Tela
 participant "ControleMonitoria : Control" as Controle
@@ -332,7 +332,7 @@ Tela -> Monitor : mostrarDisciplinas()
 @enduml
 
 @startuml
-' UC020 - Visualizar Vagas
+'title UC020 - Visualizar Vagas
 actor Aluno
 participant "TelaVagas : Boundary" as Tela
 participant "ControleMonitoria : Control" as Controle
@@ -347,7 +347,7 @@ Tela -> Aluno : mostrarVagas()
 @enduml
 
 @startuml
-' UC021 - Agendar Reunião
+'title UC021 - Agendar Reunião
 actor Aluno
 participant "TelaAgendamento : Boundary" as Tela
 participant "ControleReuniao : Control" as Controle
@@ -364,7 +364,7 @@ Tela -> Aluno : mensagemSucesso()
 @enduml
 
 @startuml
-' UC022 - Aprovar/Recusar Aluno
+'title UC022 - Aprovar/Recusar Aluno
 actor Professor
 participant "TelaAprovacaoAluno : Boundary" as Tela
 participant "ControleAprovacaoAluno : Control" as Controle
@@ -385,7 +385,7 @@ Tela -> Professor : mensagemConfirmacao()
 
 
 @startuml
-' UC023 - Visualizar Status
+'title UC023 - Visualizar Status
 actor Usuario
 participant "TelaStatus : Boundary" as Tela
 participant "ControleStatus : Control" as Controle
@@ -400,7 +400,7 @@ Tela -> Usuario : mostrarStatus()
 @enduml
 
 @startuml
-' UC024 - Notificação
+'title UC024 - Notificação
 actor Usuario
 participant "TelaNotificacao : Boundary" as Tela
 participant "ControleNotificacao : Control" as Controle
