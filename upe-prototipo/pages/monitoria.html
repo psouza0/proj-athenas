@@ -2,52 +2,195 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <title>Módulo Monitoria</title>
-  <link rel="stylesheet" href="../style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Módulo Monitoria - Portal UPE</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f6f8;
+      color: #333;
+    }
+
+    header {
+      background-color: #005c99;
+      color: white;
+      padding: 1.5rem 2rem;
+      text-align: center;
+      position: relative;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 1.8rem;
+    }
+
+    .logout-button {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      padding: 0.6rem 1rem;
+      background-color: #f4f6f8;
+      color: #005c99;
+      border: none;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    .logout-button:hover {
+        background-color: #e1e5e9;
+    }
+    
+    nav {
+      display: flex;
+      justify-content: center;
+      background-color: #003d66;
+      padding: 0.8rem;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    nav a {
+      color: #fff;
+      margin: 0 1rem;
+      text-decoration: none;
+      font-weight: 500;
+      padding: 0.5rem 0;
+      border-bottom: 2px solid transparent;
+      transition: color 0.2s, border-bottom-color 0.2s;
+    }
+
+    nav a:hover {
+      color: #cceeff;
+    }
+    
+    nav a.active {
+      color: #ffffff;
+      border-bottom-color: #ffc107;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+
+    .container h2 {
+      color: #003d66;
+      font-size: 2rem;
+      border-bottom: 3px solid #ffc107;
+      padding-bottom: 0.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .role-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .role-card {
+      background-color: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      overflow: hidden; 
+    }
+
+    .role-card h3 {
+      background-color: #005c99;
+      color: white;
+      margin: 0;
+      padding: 1rem 1.5rem;
+      font-size: 1.2rem;
+    }
+
+    .role-card ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .role-card li a {
+      display: flex;
+      align-items: center;
+      padding: 1rem 1.5rem;
+      text-decoration: none;
+      color: #333;
+      border-top: 1px solid #f0f0f0;
+      transition: background-color 0.2s, color 0.2s;
+    }
+
+    .role-card li a:hover {
+      background-color: #eef8ff;
+      color: #005c99;
+    }
+
+    .role-card .emoji {
+      margin-right: 1rem;
+      font-size: 1.2rem;
+      width: 24px;
+      text-align: center;
+    }
+  </style>
 </head>
 <body>
+  <header>
+    <h1>Módulo de Monitoria</h1>
+    <button class="logout-button" onclick="window.location.href='../login.html'">Logout</button>
+  </header>
+
   <nav>
     <a href="../index.html">Início</a>
     <a href="estagio.html">Estágio</a>
-    <a href="monitoria.html"><strong>Monitoria</strong></a>
+    <a href="monitoria.html" class="active">Monitoria</a>
     <a href="tcc.html">TCC</a>
     <a href="admin.html">Admin</a>
   </nav>
-  <section>
-    <h2>Módulo de Monitoria</h2>
 
-    <h3>Aluno</h3>
-    <ul>
-      <li>🔍 Listar Disciplinas com Vagas</li>
-      <li>📤 Candidatar-se à Monitoria</li>
-      <li>🧾 Visualizar Minhas Monitorias</li>
-      <li>✅ Entregar Atividades</li>
-    </ul>
+  <main class="container">
+    <h2>Funcionalidades de Monitoria</h2>
 
-    <h3>Monitor</h3>
-    <ul>
-      <li>📁 Enviar Documentação</li>
-      <li>📝 Enviar Relatório</li>
-      <li>🧩 Criar Atividades</li>
-      <li>🧪 Avaliar Atividades dos Alunos</li>
-      <li>📚 Listar Disciplinas que Monitora</li>
-    </ul>
+    <div class="role-grid">
+      <div class="role-card">
+        <h3>Para o Aluno</h3>
+        <ul>
+          <li><a href="#"><span class="emoji">🔍</span> Listar Disciplinas com Vagas</a></li>
+          <li><a href="#"><span class="emoji">📤</span> Candidatar-se à Monitoria</a></li>
+          <li><a href="#"><span class="emoji">🧾</span> Visualizar Minhas Monitorias</a></li>
+          <li><a href="#"><span class="emoji">✅</span> Entregar Atividades da Disciplina</a></li>
+        </ul>
+      </div>
 
-    <h3>Professor da Disciplina</h3>
-    <ul>
-      <li>📢 Criar Vaga de Monitor</li>
-      <li>✅ Aprovar/Recusar Monitores</li>
-      <li>📊 Avaliar Relatórios de Monitoria</li>
-      <li>📈 Acompanhar Atividades</li>
-      <li>✍️ Assinar Documentos</li>
-    </ul>
+      <div class="role-card">
+        <h3>Para o Monitor</h3>
+        <ul>
+          <li><a href="#"><span class="emoji">📁</span> Enviar Documentação (Termos)</a></li>
+          <li><a href="#"><span class="emoji">📝</span> Enviar Relatório de Frequência</a></li>
+          <li><a href="#"><span class="emoji">🧩</span> Criar Atividades para a Turma</a></li>
+          <li><a href="#"><span class="emoji">🧪</span> Avaliar Atividades dos Alunos</a></li>
+        </ul>
+      </div>
 
-    <h3>Coordenador de Monitoria</h3>
-    <ul>
-      <li>📜 Lançar Edital</li>
-      <li>🔍 Validar Inscrições</li>
-      <li>✍️ Assinar Documentos</li>
-    </ul>
-  </section>
+      <div class="role-card">
+        <h3>Para o Professor da Disciplina</h3>
+        <ul>
+          <li><a href="#"><span class="emoji">📢</span> Criar Vaga de Monitor</a></li>
+          <li><a href="#"><span class="emoji">✅</span> Aprovar/Recusar Candidatos</a></li>
+          <li><a href="#"><span class="emoji">📊</span> Avaliar Relatórios do Monitor</a></li>
+          <li><a href="#"><span class="emoji">✍️</span> Assinar Documentos de Monitoria</a></li>
+        </ul>
+      </div>
+
+      <div class="role-card">
+        <h3>Para o Coordenador de Monitoria</h3>
+        <ul>
+          <li><a href="#"><span class="emoji">📜</span> Lançar e Gerenciar Edital</a></li>
+          <li><a href="#"><span class="emoji">🔍</span> Validar Inscrições Aprovadas</a></li>
+          <li><a href="#"><span class="emoji">✍️</span> Assinar Documentos Finais</a></li>
+        </ul>
+      </div>
+    </div>
+  </main>
 </body>
 </html>

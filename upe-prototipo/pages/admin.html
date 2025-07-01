@@ -2,27 +2,175 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <title>Administração</title>
-  <link rel="stylesheet" href="../style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Painel de Administração - Portal UPE</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f6f8;
+      color: #333;
+    }
+
+    header {
+      background-color: #005c99;
+      color: white;
+      padding: 1.5rem 2rem;
+      text-align: center;
+      position: relative;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 1.8rem;
+    }
+
+    .logout-button {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      padding: 0.6rem 1rem;
+      background-color: #f4f6f8;
+      color: #005c99;
+      border: none;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    .logout-button:hover {
+        background-color: #e1e5e9;
+    }
+    
+    nav {
+      display: flex;
+      justify-content: center;
+      background-color: #003d66;
+      padding: 0.8rem;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    nav a {
+      color: #fff;
+      margin: 0 1rem;
+      text-decoration: none;
+      font-weight: 500;
+      padding: 0.5rem 0;
+      border-bottom: 2px solid transparent;
+      transition: color 0.2s, border-bottom-color 0.2s;
+    }
+
+    nav a:hover {
+      color: #cceeff;
+    }
+    
+    nav a.active {
+      color: #ffffff;
+      border-bottom-color: #ffc107;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+
+    .container h2 {
+      color: #003d66;
+      font-size: 2rem;
+      border-bottom: 3px solid #ffc107;
+      padding-bottom: 0.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .action-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2rem;
+      align-items: start;
+    }
+
+    .action-card {
+      background-color: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      overflow: hidden; 
+    }
+
+    .action-card h3 {
+      background-color: #005c99;
+      color: white;
+      margin: 0;
+      padding: 1rem 1.5rem;
+      font-size: 1.2rem;
+    }
+
+    .action-card ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .action-card li a {
+      display: flex;
+      align-items: center;
+      padding: 1rem 1.5rem;
+      text-decoration: none;
+      color: #333;
+      border-top: 1px solid #f0f0f0;
+      transition: background-color 0.2s, color 0.2s;
+    }
+
+    .action-card li a:hover {
+      background-color: #eef8ff;
+      color: #005c99;
+    }
+
+    .action-card .emoji {
+      margin-right: 1rem;
+      font-size: 1.2rem;
+      width: 24px;
+      text-align: center;
+    }
+  </style>
 </head>
 <body>
+  <header>
+    <h1>Painel de Administração</h1>
+    <button class="logout-button" onclick="window.location.href='login.html'">Logout</button>
+  </header>
+
   <nav>
     <a href="../index.html">Início</a>
     <a href="estagio.html">Estágio</a>
     <a href="monitoria.html">Monitoria</a>
     <a href="tcc.html">TCC</a>
-    <a href="admin.html"><strong>Admin</strong></a>
+    <a href="admin.html" class="active">Admin</a>
   </nav>
-  <section>
-    <h2>Painel de Administração</h2>
 
-    <ul>
-      <li>🧑‍💼 Visualizar Usuários Pendentes</li>
-      <li>✅ Aprovar/Recusar Cadastro</li>
-      <li>🎭 Atribuir Papéis (Aluno, Monitor, Coord, etc)</li>
-      <li>🔍 Buscar Usuários por e-mail</li>
-      <li>📊 Acompanhar Estatísticas de Uso</li>
-    </ul>
-  </section>
+  <main class="container">
+    <h2>Ferramentas Administrativas</h2>
+
+    <div class="action-grid">
+      <div class="action-card">
+        <h3>Gestão de Usuários</h3>
+        <ul>
+          <li><a href="#"><span class="emoji">🧑‍💼</span> Visualizar Usuários Pendentes</a></li>
+          <li><a href="#"><span class="emoji">✅</span> Aprovar/Recusar Cadastro</a></li>
+          <li><a href="#"><span class="emoji">🎭</span> Atribuir Papéis (Coordenador, etc.)</a></li>
+          <li><a href="#"><span class="emoji">🔍</span> Buscar Usuário por E-mail ou Nome</a></li>
+        </ul>
+      </div>
+
+      <div class="action-card">
+        <h3>Relatórios e Métricas</h3>
+        <ul>
+          <li><a href="#"><span class="emoji">📊</span> Acompanhar Estatísticas de Uso</a></li>
+        </ul>
+      </div>
+
+    </div>
+  </main>
 </body>
 </html>

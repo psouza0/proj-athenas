@@ -2,44 +2,187 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <title>Módulo TCC</title>
-  <link rel="stylesheet" href="../style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Módulo TCC - Portal UPE</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f6f8;
+      color: #333;
+    }
+
+    header {
+      background-color: #005c99;
+      color: white;
+      padding: 1.5rem 2rem;
+      text-align: center;
+      position: relative;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 1.8rem;
+    }
+
+    .logout-button {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      padding: 0.6rem 1rem;
+      background-color: #f4f6f8;
+      color: #005c99;
+      border: none;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    .logout-button:hover {
+        background-color: #e1e5e9;
+    }
+    
+    nav {
+      display: flex;
+      justify-content: center;
+      background-color: #003d66;
+      padding: 0.8rem;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    nav a {
+      color: #fff;
+      margin: 0 1rem;
+      text-decoration: none;
+      font-weight: 500;
+      padding: 0.5rem 0;
+      border-bottom: 2px solid transparent;
+      transition: color 0.2s, border-bottom-color 0.2s;
+    }
+
+    nav a:hover {
+      color: #cceeff;
+    }
+    
+    nav a.active {
+      color: #ffffff;
+      border-bottom-color: #ffc107;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+
+    .container h2 {
+      color: #003d66;
+      font-size: 2rem;
+      border-bottom: 3px solid #ffc107;
+      padding-bottom: 0.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .role-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2rem;
+    }
+
+    .role-card {
+      background-color: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      overflow: hidden; 
+    }
+
+    .role-card h3 {
+      background-color: #005c99;
+      color: white;
+      margin: 0;
+      padding: 1rem 1.5rem;
+      font-size: 1.2rem;
+    }
+
+    .role-card ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .role-card li a {
+      display: flex;
+      align-items: center;
+      padding: 1rem 1.5rem;
+      text-decoration: none;
+      color: #333;
+      border-top: 1px solid #f0f0f0;
+      transition: background-color 0.2s, color 0.2s;
+    }
+
+    .role-card li a:hover {
+      background-color: #eef8ff;
+      color: #005c99;
+    }
+
+    .role-card .emoji {
+      margin-right: 1rem;
+      font-size: 1.2rem;
+      width: 24px;
+      text-align: center;
+    }
+  </style>
 </head>
 <body>
+  <header>
+    <h1>Módulo de TCC</h1>
+    <button class="logout-button" onclick="window.location.href='../login.html'">Logout</button>
+  </header>
+
   <nav>
     <a href="../index.html">Início</a>
     <a href="estagio.html">Estágio</a>
     <a href="monitoria.html">Monitoria</a>
-    <a href="tcc.html"><strong>TCC</strong></a>
+    <a href="tcc.html" class="active">TCC</a>
     <a href="admin.html">Admin</a>
   </nav>
-  <section>
-    <h2>Módulo de TCC</h2>
 
-    <h3>Aluno</h3>
-    <ul>
-      <li>📥 Submeter Pré-Projeto</li>
-      <li>📄 Submeter Versão Final</li>
-      <li>📎 Enviar Documentos</li>
-      <li>👨‍🏫 Solicitar Orientador</li>
-      <li>📅 Agendar Reuniões</li>
-    </ul>
+  <main class="container">
+    <h2>Funcionalidades de TCC</h2>
 
-    <h3>Orientador</h3>
-    <ul>
-      <li>🗃️ Criar Vagas para Orientação</li>
-      <li>✅ Aceitar/Recusar Alunos</li>
-      <li>📝 Avaliar Documentos</li>
-      <li>📅 Agendar Reuniões com Aluno</li>
-      <li>✍️ Assinar Documentos</li>
-    </ul>
+    <div class="role-grid">
+      <div class="role-card">
+        <h3>Para o Aluno</h3>
+        <ul>
+          <li><a href="#"><span class="emoji">👨‍🏫</span> Solicitar Orientador</a></li>
+          <li><a href="#"><span class="emoji">📥</span> Submeter Pré-Projeto</a></li>
+          <li><a href="#"><span class="emoji">📄</span> Submeter Versão Final do TCC</a></li>
+          <li><a href="#"><span class="emoji">📎</span> Enviar Outros Documentos</a></li>
+          <li><a href="#"><span class="emoji">📅</span> Agendar Reuniões com Orientador</a></li>
+        </ul>
+      </div>
 
-    <h3>Coordenador de TCC</h3>
-    <ul>
-      <li>📢 Lançar Edital</li>
-      <li>📊 Supervisionar Progresso</li>
-      <li>✍️ Assinar Documentos</li>
-    </ul>
-  </section>
+      <div class="role-card">
+        <h3>Para o Orientador</h3>
+        <ul>
+          <li><a href="#"><span class="emoji">🗃️</span> Gerenciar Vagas de Orientação</a></li>
+          <li><a href="#"><span class="emoji">✅</span> Aceitar/Recusar Solicitações</a></li>
+          <li><a href="#"><span class="emoji">📝</span> Avaliar Documentos Submetidos</a></li>
+          <li><a href="#"><span class="emoji">📅</span> Gerenciar Reuniões Agendadas</a></li>
+          <li><a href="#"><span class="emoji">✍️</span> Assinar Documentos do TCC</a></li>
+        </ul>
+      </div>
+
+      <div class="role-card">
+        <h3>Para o Coordenador de TCC</h3>
+        <ul>
+          <li><a href="#"><span class="emoji">📢</span> Lançar e Gerenciar Edital</a></li>
+          <li><a href="#"><span class="emoji">📊</span> Supervisionar Progresso dos TCCs</a></li>
+          <li><a href="#"><span class="emoji">✍️</span> Assinar Documentos Finais</a></li>
+        </ul>
+      </div>
+    </div>
+  </main>
 </body>
 </html>
