@@ -1,16 +1,142 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Login - UPE</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portal Acadêmico - UPE</title>
   <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f4f6f8;
+      color: #333;
+    }
+
+    header {
+      background-color: #005c99;
+      color: white;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2rem;
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      background-color: #003d66;
+      padding: 0.8rem;
+    }
+
+    nav a {
+      color: #fff;
+      margin: 0 1rem;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    nav a:hover {
+      color: #cceeff;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .card {
+      background-color: #ffffff;
+      border-radius: 8px;
+      padding: 1.5rem;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      transition: transform 0.2s;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+    }
+
+    .card h3 {
+      margin-top: 0;
+      color: #005c99;
+    }
+
+    .footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      color: #777;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
 </head>
 <body>
+  <header>
+    <h1>Portal Acadêmico Integrado - UPE</h1>
+    <p>Simplificando a gestão de Estágio, Monitoria e TCC</p>
+  </header>
+
+  <nav>
+    <a href="index.html">Início</a>
+    <a href="pages/estagio.html">Estágio</a>
+    <a href="pages/monitoria.html">Monitoria</a>
+    <a href="pages/tcc.html">TCC</a>
+    <a href="pages/admin.html">Administração</a>
+  </nav>
+
   <div class="container">
-    <h1>Plataforma UPE</h1>
-    <button onclick="window.location.href='pages/dashboard.html'">Entrar com Google</button>
+    <h2>Bem-vindo à plataforma integrada da UPE</h2>
+    <p>
+      Este sistema visa reunir todas as funcionalidades necessárias para discentes, docentes e coordenadores no acompanhamento das atividades de estágio, monitoria e TCC.
+    </p>
+
+    <div class="grid">
+      <div class="card">
+        <h3>🎓 Módulo de Estágio</h3>
+        <p>Cadastro de estágios, envio de documentos, relatórios e acompanhamento de orientações.</p>
+        <a href="pages/estagio.html">Acessar &rarr;</a>
+      </div>
+
+      <div class="card">
+        <h3>🧑‍🏫 Módulo de Monitoria</h3>
+        <p>Vagas, candidaturas, atividades, relatórios e acompanhamento de desempenho.</p>
+        <a href="pages/monitoria.html">Acessar &rarr;</a>
+      </div>
+
+      <div class="card">
+        <h3>📚 Módulo de TCC</h3>
+        <p>Submissão de projetos, orientações, cronograma e envio de versões finais.</p>
+        <a href="pages/tcc.html">Acessar &rarr;</a>
+      </div>
+
+      <div class="card">
+        <h3>⚙️ Administração</h3>
+        <p>Aprovação de usuários, atribuição de papéis e supervisão do sistema.</p>
+        <a href="pages/admin.html">Acessar &rarr;</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    © 2025 Universidade de Pernambuco – SITEM
   </div>
 </body>
 </html>
