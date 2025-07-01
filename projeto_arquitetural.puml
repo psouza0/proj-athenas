@@ -1,0 +1,73 @@
+@startuml
+title Diagrama de Implantação - Sistema Acadêmico UPE
+
+' CLIENTE
+node "Cliente Web (Navegador)" as Cliente {
+[Aluno]
+[Professor]
+[Coordenador]
+}
+
+' LOAD BALANCER
+node "Load Balancer\n(NGINX / Apache)" as LB
+
+' BACKEND
+node "Servidor de Aplicação" as AppServer {
+[API REST]
+[Controle de Sessão]
+[Controle de Acesso (RBAC)]
+[ControleEstagio]
+[ControleTCC]
+[ControleMonitoria]
+[ControleReuniao]
+[ControleDocumentos]
+}
+
+' DATABASE
+database "Banco de Dados\n(PostgreSQL / MySQL)" as DB {
+[Entidades Persistentes]
+}
+
+' DOCUMENT STORAGE
+node "Armazenamento de Documentos\n(S3 / Firebase Storage)" as Storage
+
+' AUTENTICAÇÃO
+cloud "Google OAuth" as OAuth {
+[Login Google]
+[Recuperar Senha]
+}
+
+' ASSINATURA DIGITAL
+cloud "Serviço de Assinatura Digital" as Assinatura {
+[Assinar Documentos]
+[Validar Assinaturas]
+}
+
+' NOTIFICAÇÕES
+cloud "Serviço de Notificação" as Notif {
+[Envio de E-mails]
+[Alertas de Sistema]
+}
+
+' MONITORAMENTO (Opcional)
+node "Observabilidade" as Monitor {
+[Logs]
+[Dashboards]
+}
+
+' RELAÇÕES
+Aluno --> Cliente
+Professor --> Cliente
+Coordenador --> Cliente
+
+Cliente --> LB : HTTPS
+LB --> AppServer : HTTP / HTTPS
+
+AppServer --> DB : JDBC / ORM
+AppServer --> OAuth : OAuth 2.0
+AppServer --> Storage : Upload / Download Docs
+AppServer --> Assinatura : API Assinatura
+AppServer --> Notif : SMTP / REST API
+AppServer --> Monitor : Envia logs / métricas
+
+@enduml

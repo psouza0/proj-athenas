@@ -150,3 +150,266 @@ Estagio --> Controle : retornaLista()
 Controle -> Tela : exibirLista()
 Tela -> CoordenadorEstagio : mostrarAlunos()
 @enduml
+
+@startuml
+' UC010 - Aceitar/Recusar Solicitação de Orientação
+actor CoordenadorEstagio
+participant "TelaSolicitacoes : Boundary" as Tela
+participant "ControleSolicitacoes : Control" as Controle
+participant "SolicitacaoOrientacao : Entity" as Solicitacao
+
+CoordenadorEstagio -> Tela : acessarSolicitacoes()
+Tela -> Controle : listarSolicitacoesPendentes()
+Controle -> Solicitacao : buscarSolicitacoesPendentes()
+Solicitacao --> Controle : listaSolicitacoes()
+Controle -> Tela : exibirSolicitacoes()
+CoordenadorEstagio -> Tela : decidirSolicitacao()
+Tela -> Controle : registrarDecisao(solicitacaoId, decisao)
+Controle -> Solicitacao : atualizarStatus(solicitacaoId, decisao)
+Solicitacao --> Controle : statusAtualizado()
+Controle -> Tela : confirmaAtualizacao()
+Tela -> CoordenadorEstagio : exibeConfirmacao()
+@enduml
+
+@startuml
+' UC011 - Enviar Trabalho Acadêmico
+actor Aluno
+participant "TelaSubmissaoTrabalho : Boundary" as Tela
+participant "ControleTCC : Control" as Controle
+participant "TrabalhoAcademico : Entity" as Trabalho
+
+Aluno -> Tela : acessarSubmissao()
+Tela -> Aluno : exibeFormularioUpload()
+Aluno -> Tela : enviarArquivoTCC()
+Tela -> Controle : processarSubmissao(dados)
+Controle -> Trabalho : salvarTrabalho(dados)
+Trabalho --> Controle : trabalhoSalvo()
+Controle -> Tela : exibirConfirmacao()
+Tela -> Aluno : mensagemSucesso()
+@enduml
+
+@startuml
+' UC012 - Avaliar Trabalho Acadêmico
+actor OrientadorTCC
+participant "TelaAvaliacao : Boundary" as Tela
+participant "ControleTCC : Control" as Controle
+participant "TrabalhoAcademico : Entity" as Trabalho
+
+OrientadorTCC -> Tela : acessarAvaliacao()
+Tela -> Controle : requisitarTrabalhosPendentes()
+Controle -> Trabalho : buscarTrabalhosPendentes()
+Trabalho --> Controle : listaTrabalhos()
+Controle -> Tela : exibeTrabalhos()
+OrientadorTCC -> Tela : selecionarTrabalho()
+Tela -> Controle : registrarAvaliacao(trabalhoId, avaliacao)
+Controle -> Trabalho : atualizarAvaliacao(trabalhoId, avaliacao)
+Trabalho --> Controle : avaliacaoAtualizada()
+Controle -> Tela : confirmaAvaliacao()
+Tela -> OrientadorTCC : mensagemConfirmacao()
+@enduml
+
+@startuml
+' UC013 - Assinar Documentos
+actor CoordenadorTCC
+participant "TelaAssinatura : Boundary" as Tela
+participant "ControleDocumentos : Control" as Controle
+participant "Documento : Entity" as Documento
+
+CoordenadorTCC -> Tela : acessarDocumentos()
+Tela -> Controle : listarDocumentosPendentes()
+Controle -> Documento : buscarPendentes()
+Documento --> Controle : documentos()
+Controle -> Tela : exibeDocumentos()
+CoordenadorTCC -> Tela : assinarDocumento(id)
+Tela -> Controle : realizarAssinatura(id)
+Controle -> Documento : atualizarStatusAssinado(id)
+Documento --> Controle : documentoAtualizado()
+Controle -> Tela : confirmaAssinatura()
+Tela -> CoordenadorTCC : mostraConfirmacao()
+@enduml
+
+@startuml
+' UC014 - Submeter Vaga de Monitoria
+actor Professor
+participant "TelaVagaMonitoria : Boundary" as Tela
+participant "ControleMonitoria : Control" as Controle
+participant "VagaMonitoria : Entity" as Vaga
+
+Professor -> Tela : acessarFormularioVaga()
+Tela -> Professor : exibeFormulario()
+Professor -> Tela : preencherVaga()
+Tela -> Controle : submeterVaga(dados)
+Controle -> Vaga : salvarVaga(dados)
+Vaga --> Controle : vagaCriada()
+Controle -> Tela : confirmaVaga()
+Tela -> Professor : mensagemSucesso()
+@enduml
+
+@startuml
+' UC015 - Criar Atividade de Monitoria
+actor Monitor
+participant "TelaAtividadeMonitoria : Boundary" as Tela
+participant "ControleMonitoria : Control" as Controle
+participant "AtividadeMonitoria : Entity" as Atividade
+
+Monitor -> Tela : acessarFormularioAtividade()
+Tela -> Monitor : exibeFormulario()
+Monitor -> Tela : preencherAtividade()
+Tela -> Controle : submeterAtividade(dados)
+Controle -> Atividade : salvarAtividade(dados)
+Atividade --> Controle : atividadeCriada()
+Controle -> Tela : confirmaAtividade()
+Tela -> Monitor : mensagemSucesso()
+@enduml
+
+@startuml
+' UC016 - Responder Atividade de Monitoria
+actor Aluno
+participant "TelaAtividade : Boundary" as Tela
+participant "ControleMonitoria : Control" as Controle
+participant "AtividadeMonitoria : Entity" as Atividade
+
+Aluno -> Tela : acessarAtividades()
+Tela -> Controle : listarAtividadesDisponiveis()
+Controle -> Atividade : buscarAtividades()
+Atividade --> Controle : listaAtividades()
+Controle -> Tela : exibirAtividades()
+Aluno -> Tela : selecionarAtividade()
+Tela -> Controle : registrarResposta(atividadeId, resposta)
+Controle -> Atividade : salvarResposta(atividadeId, resposta)
+Atividade --> Controle : respostaRegistrada()
+Controle -> Tela : confirmaResposta()
+Tela -> Aluno : mensagemConfirmacao()
+@enduml
+
+@startuml
+' UC017 - Criar Vaga
+actor OrientadorEstagio
+participant "TelaCriarVaga : Boundary" as Tela
+participant "ControleEstagio : Control" as Controle
+participant "VagaOrientacaoEstagio : Entity" as Vaga
+
+OrientadorEstagio -> Tela : acessarCriarVaga()
+Tela -> OrientadorEstagio : exibeFormulario()
+OrientadorEstagio -> Tela : preencherDadosVaga()
+Tela -> Controle : submeterVaga(dados)
+Controle -> Vaga : salvarVaga(dados)
+Vaga --> Controle : vagaCriada()
+Controle -> Tela : confirmaCriacao()
+Tela -> OrientadorEstagio : mensagemSucesso()
+@enduml
+
+@startuml
+' UC018 - Lançar Edital de Vagas
+actor CoordenadorMonitoria
+participant "TelaLancarEdital : Boundary" as Tela
+participant "ControleMonitoria : Control" as Controle
+participant "Edital : Entity" as Edital
+
+CoordenadorMonitoria -> Tela : acessarLancarEdital()
+Tela -> CoordenadorMonitoria : exibeFormulario()
+CoordenadorMonitoria -> Tela : preencherEdital()
+Tela -> Controle : submeterEdital(dados)
+Controle -> Edital : salvarEdital(dados)
+Edital --> Controle : editalCriado()
+Controle -> Tela : confirmaLancamento()
+Tela -> CoordenadorMonitoria : mensagemSucesso()
+@enduml
+
+@startuml
+' UC019 - Listar Disciplinas Monitoradas
+actor Monitor
+participant "TelaDisciplinasMonitoradas : Boundary" as Tela
+participant "ControleMonitoria : Control" as Controle
+participant "DisciplinaMonitorada : Entity" as Disciplina
+
+Monitor -> Tela : acessarListaDisciplinas()
+Tela -> Controle : requisitarLista()
+Controle -> Disciplina : buscarPorMonitor()
+Disciplina --> Controle : listaDisciplinas()
+Controle -> Tela : exibeLista()
+Tela -> Monitor : mostrarDisciplinas()
+@enduml
+
+@startuml
+' UC020 - Visualizar Vagas
+actor Aluno
+participant "TelaVagas : Boundary" as Tela
+participant "ControleMonitoria : Control" as Controle
+participant "VagaMonitoria : Entity" as Vaga
+
+Aluno -> Tela : acessarVagas()
+Tela -> Controle : listarVagas()
+Controle -> Vaga : buscarVagasDisponiveis()
+Vaga --> Controle : listaVagas()
+Controle -> Tela : exibeVagas()
+Tela -> Aluno : mostrarVagas()
+@enduml
+
+@startuml
+' UC021 - Agendar Reunião
+actor Aluno
+participant "TelaAgendamento : Boundary" as Tela
+participant "ControleReuniao : Control" as Controle
+participant "Reuniao : Entity" as Reuniao
+
+Aluno -> Tela : acessarAgendamento()
+Tela -> Aluno : exibeFormulario()
+Aluno -> Tela : preencherDadosReuniao()
+Tela -> Controle : enviarAgendamento(dados)
+Controle -> Reuniao : criarReuniao(dados)
+Reuniao --> Controle : reuniaoCriada()
+Controle -> Tela : confirmaAgendamento()
+Tela -> Aluno : mensagemSucesso()
+@enduml
+
+@startuml
+' UC022 - Aprovar/Recusar Aluno
+actor Professor
+participant "TelaAprovacaoAluno : Boundary" as Tela
+participant "ControleAprovacaoAluno : Control" as Controle
+participant "SolicitacaoOrientacao : Entity" as Solicitacao
+
+Professor -> Tela : acessarSolicitacoes()
+Tela -> Controle : listarSolicitacoesPendentes()
+Controle -> Solicitacao : buscarSolicitacoesPendentes()
+Solicitacao --> Controle : listaSolicitacoes()
+Controle -> Tela : exibeSolicitacoes()
+Professor -> Tela : tomarDecisao()
+Tela -> Controle : registrarDecisao(solicitacaoId, decisao)
+Controle -> Solicitacao : atualizarStatus(solicitacaoId, decisao)
+Solicitacao --> Controle : statusAtualizado()
+Controle -> Tela : confirmaAtualizacao()
+Tela -> Professor : mensagemConfirmacao()
+@enduml
+
+
+@startuml
+' UC023 - Visualizar Status
+actor Usuario
+participant "TelaStatus : Boundary" as Tela
+participant "ControleStatus : Control" as Controle
+participant "StatusSolicitacoes : Entity" as Status
+
+Usuario -> Tela : acessarStatus()
+Tela -> Controle : solicitarStatus(usuarioId)
+Controle -> Status : buscarStatus(usuarioId)
+Status --> Controle : retornaStatus()
+Controle -> Tela : exibirStatus()
+Tela -> Usuario : mostrarStatus()
+@enduml
+
+@startuml
+' UC024 - Notificação
+actor Usuario
+participant "TelaNotificacao : Boundary" as Tela
+participant "ControleNotificacao : Control" as Controle
+participant "Notificacao : Entity" as Notificacao
+
+Usuario -> Tela : acessarNotificacoes()
+Tela -> Controle : solicitarNotificacoes(usuarioId)
+Controle -> Notificacao : buscarNotificacoes(usuarioId)
+Notificacao --> Controle : listaNotificacoes()
+Controle -> Tela : exibirNotificacoes()
+Tela -> Usuario : mostrarNotificacoes()
+@enduml
