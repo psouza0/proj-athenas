@@ -1,0 +1,301 @@
+Claro! Abaixo está o arquivo completo em formato PlantUML (.puml) com todas as classes organizadas por módulo e seguindo o modelo BCE (Boundary – Control – Entity). Ele cobre os módulos: Monitoria, Estágio, TCC e Acesso/Admin. Basta copiar esse conteúdo e salvar como diagramas\_bce.puml no seu VSCode para gerar com PlantUML.
+
+@startuml
+' =====================
+' CONFIGURAÇÕES VISUAIS
+' =====================
+skinparam classAttributeIconSize 0
+skinparam classFontSize 12
+skinparam classAttributeFontSize 11
+skinparam classMethodFontSize 11
+
+' ====================================
+'            ENTITY COMUNS
+' ====================================
+package "Entidades Comuns" {
+class Aluno {
+\- id: int
+\- nome: string
+\- email: string
+}
+
+class Professor {
+\- id: int
+\- nome: string
+\- email: string
+}
+
+class Coordenador {
+\- id: int
+\- nome: string
+\- area: string
+}
+
+class Usuario {
+\- id: int
+\- nome: string
+\- email: string
+\- papel: string
+}
+
+class SolicitacaoCadastro {
+\- id: int
+\- usuario: Usuario
+\- status: string
+}
+
+SolicitacaoCadastro --> Usuario
+}
+
+' =====================
+'       MONITORIA
+' =====================
+package "Monitoria" {
+class EditalMonitoria {
+\- id: int
+\- semestre: string
+\- dataPublicacao: date
+\- observacoes: string
+}
+
+class VagaMonitoria {
+\- id: int
+\- disciplina: string
+\- professor: Professor
+\- quantidade: int
+\- edital: EditalMonitoria
+}
+
+class CandidaturaMonitoria {
+\- id: int
+\- aluno: Aluno
+\- vaga: VagaMonitoria
+\- status: string
+}
+
+class RelatorioMonitoria {
+\- id: int
+\- aluno: Aluno
+\- professor: Professor
+\- periodo: string
+\- conteudo: string
+}
+
+class ControleMonitoria {
+\+ criarVaga(): void
+\+ candidatar(): void
+\+ avaliarCandidatura(): void
+\+ registrarRelatorio(): void
+}
+
+class TelaCadastroVagaMonitoria {
+\+ criarVaga(): void
+\+ visualizarVagas(): void
+}
+
+class TelaCandidaturaMonitoria {
+\+ candidatar(): void
+\+ acompanharStatus(): void
+}
+
+class TelaAvaliacaoCandidaturas {
+\+ aprovarCandidatura(): void
+\+ recusarCandidatura(): void
+}
+
+class TelaRelatorioMonitoria {
+\+ enviarRelatorio(): void
+\+ consultarRelatorio(): void
+}
+
+EditalMonitoria "1" -- "0..*" VagaMonitoria
+VagaMonitoria "1" -- "1" Professor
+VagaMonitoria "1" -- "0..*" CandidaturaMonitoria
+CandidaturaMonitoria "1" -- "1" Aluno
+CandidaturaMonitoria "1" -- "1" VagaMonitoria
+RelatorioMonitoria "1" -- "1" Aluno
+RelatorioMonitoria "1" -- "1" Professor
+}
+
+' =====================
+'       ESTÁGIO
+' =====================
+package "Estágio" {
+class Estagio {
+\- id: int
+\- aluno: Aluno
+\- empresa: string
+\- tipo: string
+\- status: string
+\- orientador: Professor
+}
+
+class DocumentoEstagio {
+\- id: int
+\- tipo: string
+\- arquivo: string
+\- status: string
+\- aluno: Aluno
+\- assinaturaOrientador: bool
+}
+
+class ControleEstagio {
+\+ cadastrarEstagio(): void
+\+ solicitarOrientador(): void
+\+ avaliarEstagio(): void
+\+ enviarDocumento(): void
+}
+
+class TelaCadastroEstagio {
+\+ cadastrarEstagio(): void
+\+ visualizarEstagio(): void
+}
+
+class TelaSolicitacaoOrientacaoEstagio {
+\+ solicitarOrientador(): void
+\+ acompanharSolicitacao(): void
+}
+
+class TelaAvaliacaoEstagio {
+\+ avaliarEstagio(): void
+\+ aprovarEstagio(): void
+}
+
+class TelaDocumentosEstagio {
+\+ enviarDocumento(): void
+\+ assinarDocumento(): void
+}
+
+Estagio "1" -- "1" Aluno
+Estagio "1" -- "1" Professor
+Estagio "1" -- "0..\*" DocumentoEstagio
+DocumentoEstagio "1" -- "1" Aluno
+}
+
+' =====================
+'         TCC
+' =====================
+package "TCC" {
+class TCC {
+\- id: int
+\- aluno: Aluno
+\- orientador: Professor
+\- tema: string
+\- status: string
+\- dataInicio: date
+\- dataConclusao: date
+}
+
+class DocumentoTCC {
+\- id: int
+\- tipo: string
+\- arquivo: string
+\- dataEnvio: date
+\- aluno: Aluno
+\- orientador: Professor
+\- status: string
+\- assinaturaOrientador: bool
+}
+
+class EditalTCC {
+\- id: int
+\- ano: int
+\- semestre: int
+\- dataPublicacao: date
+\- observacoes: string
+}
+
+class OfertaTemaOrientador {
+\- id: int
+\- orientador: Professor
+\- tema: string
+\- disponivel: bool
+}
+
+class ReuniaoTCC {
+\- id: int
+\- tcc: TCC
+\- dataHora: datetime
+\- local: string
+\- observacoes: string
+}
+
+class ControleTCC {
+\+ submeterDocumento(): void
+\+ avaliarDocumento(): void
+\+ criarEdital(): void
+\+ oferecerTema(): void
+\+ solicitarOrientacao(): void
+\+ agendarReuniao(): void
+}
+
+class TelaSubmissaoDocumentosTCC {
+\+ enviarDocumento(): void
+\+ visualizarDocumentos(): void
+}
+
+class TelaSolicitacaoOrientacaoTCC {
+\+ solicitarOrientacao(): void
+\+ acompanharSolicitacao(): void
+}
+
+class TelaGestaoEditalTCC {
+\+ publicarEdital(): void
+\+ visualizarEdital(): void
+}
+
+class TelaAgendaReunioesTCC {
+\+ agendarReuniao(): void
+\+ visualizarReunioes(): void
+}
+
+class TelaAvaliacaoDocumentosTCC {
+\+ avaliarDocumento(): void
+}
+
+TCC "1" -- "1" Aluno
+TCC "1" -- "1" Professor
+TCC "1" -- "0..*" DocumentoTCC
+TCC "1" -- "0..*" ReuniaoTCC
+DocumentoTCC "1" -- "1" Aluno
+DocumentoTCC "1" -- "1" Professor
+EditalTCC "1" -- "0..\*" OfertaTemaOrientador
+OfertaTemaOrientador "1" -- "1" Professor
+ReuniaoTCC "1" -- "1" TCC
+}
+
+' =====================
+'   ADMIN / LOGIN
+' =====================
+package "Admin & Login" {
+class ControleAutenticacao {
+\+ autenticarOAuth(): void
+}
+
+class ControleAdministracao {
+\+ aprovarCadastro(): void
+\+ gerenciarUsuarios(): void
+}
+
+class TelaLogin {
+\+ autenticarGoogle(): void
+}
+
+class TelaCadastroUsuario {
+\+ preencherDados(): void
+\+ submeterCadastro(): void
+}
+
+class TelaAprovacaoCadastro {
+\+ listarSolicitacoes(): void
+\+ aprovarUsuario(): void
+\+ recusarUsuario(): void
+}
+
+ControleAdministracao -- SolicitacaoCadastro
+TelaLogin -- ControleAutenticacao
+TelaAprovacaoCadastro -- ControleAdministracao
+}
+@enduml
+
+Deseja que eu gere também o PNG ou SVG dessa imagem e envie para você?

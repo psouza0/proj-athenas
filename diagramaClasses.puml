@@ -244,3 +244,66 @@ OfertaTemaOrientador "1" -- "1" Professor
 ReuniaoTCC "1" -- "1" TCC
 
 @enduml
+
+'======================
+' LOGIN / ADMIN
+'======================
+
+class Usuario {
+
+id: int
+
+nome: string
+
+email: string
+
+papel: string
+}
+
+class SolicitacaoCadastro {
+
+id: int
+
+usuario: Usuario
+
+status: string
+}
+
+class TelaLogin {
+
+autenticarGoogle(): void
+}
+
+class TelaCadastroUsuario {
+
+preencherDados(): void
+
+submeterCadastro(): void
+}
+
+class TelaAprovacaoCadastro {
+
+listarSolicitacoes(): void
+
+aprovarUsuario(): void
+
+recusarUsuario(): void
+}
+
+class ControleAutenticacao {
+
+autenticarOAuth(): void
+}
+
+class ControleAdministracao {
+
+aprovarCadastro(): void
+
+gerenciarUsuarios(): void
+}
+
+' RELAÇÕES LOGIN/ADMIN
+SolicitacaoCadastro "1" -- "1" Usuario
+ControleAutenticacao -- TelaLogin
+ControleAdministracao -- TelaAprovacaoCadastro
+ControleAdministracao -- SolicitacaoCadastro

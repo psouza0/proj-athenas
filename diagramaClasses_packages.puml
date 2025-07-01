@@ -1,0 +1,229 @@
+@startuml
+skinparam classAttributeIconSize 0
+skinparam classFontSize 12
+skinparam classAttributeFontSize 11
+skinparam classMethodFontSize 11
+hide circle
+
+'======================
+'     ENTIDADES COMUNS
+'======================
+
+package "Entity" {
+  class Aluno {
+    - id: int
+    - nome: string
+    - email: string
+  }
+
+  class Professor {
+    - id: int
+    - nome: string
+    - email: string
+  }
+
+  class Coordenador {
+    - id: int
+    - nome: string
+    - area: string
+  }
+
+  ' MONITORIA
+  class EditalMonitoria {
+    - id: int
+    - semestre: string
+    - dataPublicacao: date
+    - observacoes: string
+  }
+
+  class VagaMonitoria {
+    - id: int
+    - disciplina: string
+    - professor: Professor
+    - quantidade: int
+    - edital: EditalMonitoria
+  }
+
+  class CandidaturaMonitoria {
+    - id: int
+    - aluno: Aluno
+    - vaga: VagaMonitoria
+    - status: string
+  }
+
+  class RelatorioMonitoria {
+    - id: int
+    - aluno: Aluno
+    - professor: Professor
+    - periodo: string
+    - conteudo: string
+  }
+
+  ' ESTÁGIO
+  class Estagio {
+    - id: int
+    - aluno: Aluno
+    - empresa: string
+    - tipo: string
+    - status: string
+    - orientador: Professor
+  }
+
+  class DocumentoEstagio {
+    - id: int
+    - tipo: string
+    - arquivo: string
+    - status: string
+    - aluno: Aluno
+    - assinaturaOrientador: bool
+  }
+
+  ' TCC
+  class TCC {
+    - id: int
+    - aluno: Aluno
+    - orientador: Professor
+    - tema: string
+    - status: string
+    - dataInicio: date
+    - dataConclusao: date
+  }
+
+  class DocumentoTCC {
+    - id: int
+    - tipo: string
+    - arquivo: string
+    - dataEnvio: date
+    - aluno: Aluno
+    - orientador: Professor
+    - status: string
+    - assinaturaOrientador: bool
+  }
+
+  class EditalTCC {
+    - id: int
+    - ano: int
+    - semestre: int
+    - dataPublicacao: date
+    - observacoes: string
+  }
+
+  class OfertaTemaOrientador {
+    - id: int
+    - orientador: Professor
+    - tema: string
+    - disponivel: bool
+  }
+
+  class ReuniaoTCC {
+    - id: int
+    - tcc: TCC
+    - dataHora: datetime
+    - local: string
+    - observacoes: string
+  }
+}
+
+'======================
+'     FRONTIER (BOUNDARY)
+'======================
+
+package "Boundary" {
+  ' MONITORIA
+  class TelaCadastroVagaMonitoria {
+    + criarVaga(): void
+    + visualizarVagas(): void
+  }
+
+  class TelaCandidaturaMonitoria {
+    + candidatar(): void
+    + acompanharStatus(): void
+  }
+
+  class TelaAvaliacaoCandidaturas {
+    + aprovarCandidatura(): void
+    + recusarCandidatura(): void
+  }
+
+  class TelaRelatorioMonitoria {
+    + enviarRelatorio(): void
+    + consultarRelatorio(): void
+  }
+
+  ' ESTÁGIO
+  class TelaCadastroEstagio {
+    + cadastrarEstagio(): void
+    + visualizarEstagio(): void
+  }
+
+  class TelaSolicitacaoOrientacaoEstagio {
+    + solicitarOrientador(): void
+    + acompanharSolicitacao(): void
+  }
+
+  class TelaAvaliacaoEstagio {
+    + avaliarEstagio(): void
+    + aprovarEstagio(): void
+  }
+
+  class TelaDocumentosEstagio {
+    + enviarDocumento(): void
+    + assinarDocumento(): void
+  }
+
+  ' TCC
+  class TelaSubmissaoDocumentosTCC {
+    + enviarDocumento(): void
+    + visualizarDocumentos(): void
+  }
+
+  class TelaSolicitacaoOrientacaoTCC {
+    + solicitarOrientacao(): void
+    + acompanharSolicitacao(): void
+  }
+
+  class TelaGestaoEditalTCC {
+    + publicarEdital(): void
+    + visualizarEdital(): void
+  }
+
+  class TelaAgendaReunioesTCC {
+    + agendarReuniao(): void
+    + visualizarReunioes(): void
+  }
+
+  class TelaAvaliacaoDocumentosTCC {
+    + avaliarDocumento(): void
+  }
+}
+
+'======================
+'     CONTROLADORES
+'======================
+
+package "Control" {
+  class ControleMonitoria {
+    + criarVaga(): void
+    + candidatar(): void
+    + avaliarCandidatura(): void
+    + registrarRelatorio(): void
+  }
+
+  class ControleEstagio {
+    + cadastrarEstagio(): void
+    + solicitarOrientador(): void
+    + avaliarEstagio(): void
+    + enviarDocumento(): void
+  }
+
+  class ControleTCC {
+    + submeterDocumento(): void
+    + avaliarDocumento(): void
+    + criarEdital(): void
+    + oferecerTema(): void
+    + solicitarOrientacao(): void
+    + agendarReuniao(): void
+  }
+}
+
+@enduml
