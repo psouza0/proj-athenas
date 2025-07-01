@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login - Portal Acadêmico</title>
+  <link rel="stylesheet" href="../style.css"/>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #005c99, #007acc);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .login-container {
+      background-color: #ffffff;
+      color: #333;
+      padding: 2.5rem;
+      border-radius: 12px;
+      width: 100%;
+      max-width: 420px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    .login-container h1 {
+      margin-bottom: 1.5rem;
+      color: #005c99;
+    }
+
+    .google-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      background-color: #4285f4;
+      color: #fff;
+      border: none;
+      padding: 0.8rem 1.2rem;
+      font-size: 1rem;
+      font-weight: 500;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+      width: 100%;
+    }
+
+    .google-btn:hover {
+      background-color: #3367d6;
+    }
+
+    .google-icon {
+      background: #fff;
+      border-radius: 50%;
+      padding: 0.3rem;
+    }
+
+    .footer {
+      margin-top: 2rem;
+      font-size: 0.85rem;
+      color: #777;
+    }
+
+    @media (max-width: 480px) {
+      .login-container {
+        margin: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <h1>Bem-vindo</h1>
+    <p>Acesse o Portal Acadêmico utilizando sua conta institucional @upe.br</p>
+    <br/>
+    <button class="google-btn" onclick="loginComGoogle()">
+      <img src="web_light_rd_na@2x.png" alt="Google Logo" class="google-icon" />
+      Entrar com Google
+    </button>
+
+    <div class="footer">
+      © 2025 Universidade de Pernambuco
+    </div>
+  </div>
+
+  <script>
+    function loginComGoogle() {
+      // Simulação de OAuth – substitua isso com a lógica real
+      // alert('Redirecionando para Google OAuth...');
+       window.location.href = 'index.html'; // integração real
+    }
+  </script>
+</body>
+</html>
