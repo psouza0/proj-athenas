@@ -1,0 +1,547 @@
+@startuml
+' UC001 - Login - Diagrama de Classes de Análise
+package Boundary {
+  class TelaLogin {
+    +solicitarLogin()
+    +exibirResultado()
+  }
+}
+
+package Control {
+  class ControleLogin {
+    +autenticarUsuario()
+    +validarCredenciais()
+  }
+}
+
+package Entity {
+  class GoogleOAuth {
+    +validarCredenciais()
+  }
+}
+
+TelaLogin --> ControleLogin
+ControleLogin --> GoogleOAuth
+@enduml
+
+@startuml
+' UC002 - Recuperar Senha - Diagrama de Classes de Análise
+package Boundary {
+  class TelaRecuperarSenha {
+    +solicitarRecuperacao()
+    +notificarUsuario()
+  }
+}
+
+package Control {
+  class ControleRecuperarSenha {
+    +requisitarNovaSenha()
+    +iniciarFluxoRecuperacao()
+  }
+}
+
+package Entity {
+  class GoogleOAuth {
+    +iniciarFluxoRecuperacao()
+  }
+}
+
+TelaRecuperarSenha --> ControleRecuperarSenha
+ControleRecuperarSenha --> GoogleOAuth
+@enduml
+
+@startuml
+' UC003 - Logout - Diagrama de Classes de Análise
+package Boundary {
+  class TelaPrincipal {
+    +clicarLogout()
+    +redirecionarParaLogin()
+  }
+}
+
+package Control {
+  class ControleSessao {
+    +encerrarSessao()
+  }
+}
+
+TelaPrincipal --> ControleSessao
+ControleSessao --> TelaPrincipal
+@enduml
+
+@startuml
+' UC004 - Cadastrar Perfil - Diagrama de Classes de Análise
+package Boundary {
+  class TelaCadastroPerfil {
+    +informarDados()
+    +enviarSolicitacao()
+  }
+}
+
+package Control {
+  class ControleCadastroPerfil {
+    +validarDados()
+    +enviarParaAprovacao()
+  }
+}
+
+package Entity {
+  class Usuario {
+    -nome
+    -email
+    -papel
+    +getDados()
+  }
+}
+
+TelaCadastroPerfil --> ControleCadastroPerfil
+ControleCadastroPerfil --> Usuario
+@enduml
+
+@startuml
+' UC005 - Aprovar Cadastro - Diagrama de Classes de Análise
+package Boundary {
+  class TelaAprovacaoCadastro {
+    +listarPendentes()
+    +confirmarAprovacao()
+  }
+}
+
+package Control {
+  class ControleAprovacaoCadastro {
+    +listarCadastros()
+    +aprovarCadastro()
+    +recusarCadastro()
+  }
+}
+
+package Entity {
+  class Usuario {
+    -nome
+    -email
+    -papel
+    +aprovar()
+    +recusar()
+  }
+}
+
+TelaAprovacaoCadastro --> ControleAprovacaoCadastro
+ControleAprovacaoCadastro --> Usuario
+@enduml
+
+@startuml
+' UC006 - Cadastrar Estágio - Diagrama de Classes de Análise
+package Boundary {
+  class TelaCadastroEstagio {
+    +preencherDados()
+    +enviarSolicitacao()
+  }
+}
+
+package Control {
+  class ControleCadastroEstagio {
+    +validarEstagio()
+    +submeterEstagio()
+  }
+}
+
+package Entity {
+  class Estagio {
+    -empresa
+    -duracao
+    -tipo
+    +getDetalhes()
+  }
+}
+
+TelaCadastroEstagio --> ControleCadastroEstagio
+ControleCadastroEstagio --> Estagio
+@enduml
+
+@startuml
+' UC007 - Solicitar Orientador - Diagrama de Classes de Análise
+package Boundary {
+  class TelaSolicitarOrientador {
+    +selecionarOrientador()
+    +enviarSolicitacao()
+  }
+}
+
+package Control {
+  class ControleSolicitacaoOrientador {
+    +validarSolicitacao()
+    +registrarSolicitacao()
+  }
+}
+
+package Entity {
+  class OrientadorEstagio {
+    -nome
+    -area
+    +verificarDisponibilidade()
+  }
+}
+
+TelaSolicitarOrientador --> ControleSolicitacaoOrientador
+ControleSolicitacaoOrientador --> OrientadorEstagio
+@enduml
+
+@startuml
+' UC008 - Enviar Documentação - Diagrama de Classes de Análise
+package Boundary {
+  class TelaEnvioDocumentos {
+    +selecionarArquivo()
+    +enviarArquivo()
+  }
+}
+
+package Control {
+  class ControleEnvioDocumentos {
+    +validarArquivo()
+    +armazenarDocumento()
+  }
+}
+
+package Entity {
+  class Documento {
+    -nome
+    -tipo
+    -dataEnvio
+    +validarFormato()
+  }
+}
+
+TelaEnvioDocumentos --> ControleEnvioDocumentos
+ControleEnvioDocumentos --> Documento
+@enduml
+
+@startuml
+' UC009 - Visualizar Alunos com Estágio Ativo - Diagrama de Classes de Análise
+package Boundary {
+  class TelaVisualizarEstagios {
+    +listarEstagios()
+    +filtrarPorCurso()
+  }
+}
+
+package Control {
+  class ControleEstagiosAtivos {
+    +obterListaEstagios()
+  }
+}
+
+package Entity {
+  class Estagio {
+    -aluno
+    -status
+    +getStatus()
+  }
+}
+
+TelaVisualizarEstagios --> ControleEstagiosAtivos
+ControleEstagiosAtivos --> Estagio
+@enduml
+
+@startuml
+' UC010 - Aceitar/Recusar Solicitação de Orientação - Diagrama de Classes de Análise
+package Boundary {
+  class TelaSolicitacoesOrientacao {
+    +listarSolicitacoes()
+    +aceitarSolicitacao()
+    +recusarSolicitacao()
+  }
+}
+
+package Control {
+  class ControleSolicitacoesOrientacao {
+    +processarSolicitacao()
+  }
+}
+
+package Entity {
+  class SolicitacaoOrientacao {
+    -aluno
+    -status
+    +aceitar()
+    +recusar()
+  }
+}
+
+TelaSolicitacoesOrientacao --> ControleSolicitacoesOrientacao
+ControleSolicitacoesOrientacao --> SolicitacaoOrientacao
+@enduml
+
+@startuml
+' UC011 - Enviar Trabalho Acadêmico - Diagrama de Classes de Análise
+package Boundary {
+  class TelaEnvioTrabalho {
+    +selecionarTrabalho()
+    +enviarTrabalho()
+  }
+}
+
+package Control {
+  class ControleEnvioTrabalho {
+    +validarTrabalho()
+    +registrarEnvio()
+  }
+}
+
+package Entity {
+  class TrabalhoAcademico {
+    -titulo
+    -tipo
+    +validarConteudo()
+  }
+}
+
+TelaEnvioTrabalho --> ControleEnvioTrabalho
+ControleEnvioTrabalho --> TrabalhoAcademico
+@enduml
+
+@startuml
+' UC012 - Avaliar Trabalho Acadêmico - Diagrama de Classes de Análise
+package Boundary {
+  class TelaAvaliacaoTrabalho {
+    +visualizarTrabalho()
+    +inserirAvaliacao()
+  }
+}
+
+package Control {
+  class ControleAvaliacaoTrabalho {
+    +avaliarTrabalho()
+  }
+}
+
+package Entity {
+  class Avaliacao {
+    -nota
+    -comentario
+    +registrar()
+  }
+}
+
+TelaAvaliacaoTrabalho --> ControleAvaliacaoTrabalho
+ControleAvaliacaoTrabalho --> Avaliacao
+@enduml
+
+@startuml
+' UC013 - Assinar Documentos - Diagrama de Classes de Análise
+package Boundary {
+  class TelaAssinaturaDocumentos {
+    +listarDocumentos()
+    +assinarDocumento()
+  }
+}
+
+package Control {
+  class ControleAssinaturaDocumentos {
+    +processarAssinatura()
+  }
+}
+
+package Entity {
+  class Documento {
+    -id
+    -assinaturas
+    +assinar()
+  }
+}
+
+TelaAssinaturaDocumentos --> ControleAssinaturaDocumentos
+ControleAssinaturaDocumentos --> Documento
+@enduml
+
+@startuml
+' UC014 - Submeter Vaga de Monitoria - Diagrama de Classes de Análise
+package Boundary {
+  class TelaSubmissaoVaga {
+    +preencherVaga()
+    +submeterVaga()
+  }
+}
+
+package Control {
+  class ControleVagaMonitoria {
+    +validarVaga()
+    +registrarVaga()
+  }
+}
+
+package Entity {
+  class VagaMonitoria {
+    -disciplina
+    -descricao
+    +getDados()
+  }
+}
+
+TelaSubmissaoVaga --> ControleVagaMonitoria
+ControleVagaMonitoria --> VagaMonitoria
+@enduml
+
+@startuml
+' UC015 - Criar Atividade de Monitoria - Diagrama de Classes de Análise
+package Boundary {
+  class TelaCriarAtividade {
+    +descreverAtividade()
+    +enviarAtividade()
+  }
+}
+
+package Control {
+  class ControleAtividadeMonitoria {
+    +validarAtividade()
+    +registrarAtividade()
+  }
+}
+
+package Entity {
+  class Atividade {
+    -descricao
+    -data
+    +getDetalhes()
+  }
+}
+
+TelaCriarAtividade --> ControleAtividadeMonitoria
+ControleAtividadeMonitoria --> Atividade
+@enduml
+
+@startuml
+' UC016 - Responder Atividade Monitoria - Diagrama de Classes de Análise
+package Boundary {
+  class TelaResponderAtividade {
+    +listarAtividades()
+    +responderAtividade()
+  }
+}
+
+package Control {
+  class ControleRespostaAtividade {
+    +validarResposta()
+    +registrarResposta()
+  }
+}
+
+package Entity {
+  class Resposta {
+    -atividade
+    -conteudo
+    +getConteudo()
+  }
+}
+
+TelaResponderAtividade --> ControleRespostaAtividade
+ControleRespostaAtividade --> Resposta
+@enduml
+
+@startuml
+' UC017 - Criar Vaga - Diagrama de Classes de Análise
+package Boundary {
+  class TelaCriarVaga {
+    +preencherDados()
+    +submeter()
+  }
+}
+
+package Control {
+  class ControleCriacaoVaga {
+    +validar()
+    +criar()
+  }
+}
+
+package Entity {
+  class Vaga {
+    -titulo
+    -descricao
+    +getResumo()
+  }
+}
+
+TelaCriarVaga --> ControleCriacaoVaga
+ControleCriacaoVaga --> Vaga
+@enduml
+
+@startuml
+' UC018 - Lançar Edital de Vagas - Diagrama de Classes de Análise
+package Boundary {
+  class TelaLancamentoEdital {
+    +preencherEdital()
+    +lancarEdital()
+  }
+}
+
+package Control {
+  class ControleEdital {
+    +validarEdital()
+    +publicar()
+  }
+}
+
+package Entity {
+  class Edital {
+    -titulo
+    -descricao
+    +getResumo()
+  }
+}
+
+TelaLancamentoEdital --> ControleEdital
+ControleEdital --> Edital
+@enduml
+
+@startuml
+' UC019 - Listar Disciplinas Monitoradas - Diagrama de Classes de Análise
+package Boundary {
+  class TelaListagemDisciplinas {
+    +mostrarDisciplinas()
+  }
+}
+
+package Control {
+  class ControleDisciplinasMonitoradas {
+    +obterDisciplinas()
+  }
+}
+
+package Entity {
+  class Disciplina {
+    -nome
+    -codigo
+    +getDados()
+  }
+}
+
+TelaListagemDisciplinas --> ControleDisciplinasMonitoradas
+ControleDisciplinasMonitoradas --> Disciplina
+@enduml
+
+@startuml
+' UC020 - Visualizar Vagas - Diagrama de Classes de Análise
+package Boundary {
+  class TelaVisualizarVagas {
+    +listarVagas()
+    +filtrarPorDisciplina()
+  }
+}
+
+package Control {
+  class ControleVisualizacaoVagas {
+    +obterVagas()
+  }
+}
+
+package Entity {
+  class Vaga {
+    -titulo
+    -descricao
+    +getResumo()
+  }
+}
+
+TelaVisualizarVagas --> ControleVisualizacaoVagas
+ControleVisualizacaoVagas --> Vaga
+@enduml
