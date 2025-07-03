@@ -545,3 +545,117 @@ package Entity {
 TelaVisualizarVagas --> ControleVisualizacaoVagas
 ControleVisualizacaoVagas --> Vaga
 @enduml
+
+@startuml
+' UC021 - Agendar Reunião - Diagrama de Classes de Análise
+package Boundary {
+  class TelaAgendamentoReuniao {
+    +selecionarData()
+    +confirmarAgendamento()
+  }
+}
+
+package Control {
+  class ControleAgendamentoReuniao {
+    +verificarDisponibilidade()
+    +registrarAgendamento()
+  }
+}
+
+package Entity {
+  class Reuniao {
+    -data
+    -participantes
+    +agendar()
+  }
+}
+
+TelaAgendamentoReuniao --> ControleAgendamentoReuniao
+ControleAgendamentoReuniao --> Reuniao
+@enduml
+
+@startuml
+' UC022 - Aprovar/Recusar Aluno - Diagrama de Classes de Análise
+package Boundary {
+  class TelaAprovacaoAluno {
+    +visualizarSolicitacoes()
+    +realizarAprovacao()
+  }
+}
+
+package Control {
+  class ControleAprovacaoAluno {
+    +processarAprovacao()
+    +registrarDecisao()
+  }
+}
+
+package Entity {
+  class SolicitacaoAluno {
+    -aluno
+    -status
+    +aprovar()
+    +recusar()
+  }
+}
+
+TelaAprovacaoAluno --> ControleAprovacaoAluno
+ControleAprovacaoAluno --> SolicitacaoAluno
+@enduml
+
+@startuml
+' UC023 - Ver Status de Solicitação - Diagrama de Classes de Análise
+package Boundary {
+  class TelaStatusSolicitacoes {
+    +consultarStatus()
+    +exibirResultado()
+  }
+}
+
+package Control {
+  class ControleStatusSolicitacoes {
+    +obterStatus()
+  }
+}
+
+package Entity {
+  class Solicitacao {
+    -tipo
+    -status
+    +getStatus()
+  }
+}
+
+TelaStatusSolicitacoes --> ControleStatusSolicitacoes
+ControleStatusSolicitacoes --> Solicitacao
+@enduml
+
+@startuml
+' UC024 - Notificação - Diagrama de Classes de Análise
+package Boundary {
+  class TelaNotificacoes {
+    +exibirNotificacoes()
+    +marcarComoLida()
+  }
+}
+
+package Control {
+  class ControleNotificacoes {
+    +enviarNotificacao()
+    +gerenciarNotificacoes()
+  }
+}
+
+package Entity {
+  class Notificacao {
+    -mensagem
+    -data
+    -statusLeitura
+    +enviar()
+    +marcarLida()
+  }
+}
+
+TelaNotificacoes --> ControleNotificacoes
+ControleNotificacoes --> Notificacao
+@enduml

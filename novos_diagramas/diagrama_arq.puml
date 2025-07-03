@@ -1,0 +1,135 @@
+@startuml
+title Diagrama de Componentes - Sistema Acadêmico Integrado
+
+' COMPONENTES PRINCIPAIS
+package "Front-end Web" {
+[Interface Web (React/HTML)] as WebInterface
+}
+
+package "Back-end" {
+[API REST (Spring Boot)] as APIRest
+[ControleEstagio] as ControleEstagio <<control>>
+[ControleMonitoria] as ControleMonitoria <<control>>
+[ControleTCC] as ControleTCC <<control>>
+[ControleAutenticacao] as ControleAuth <<control>>
+}
+
+package "Serviços Externos" {
+[Google OAuth] as OAuth <<external>>
+[Sistema SIG@] as SIGA <<external>>
+}
+
+package "Camada de Persistência" {
+[RepositorioEstagio] as RepoEstagio <<entity>>
+[RepositorioMonitoria] as RepoMonitoria <<entity>>
+[RepositorioTCC] as RepoTCC <<entity>>
+[RepositorioUsuarios] as RepoUsuarios <<entity>>
+}
+
+' CONEXÕES
+WebInterface --> APIRest : chamadas REST
+APIRest --> ControleAuth
+APIRest --> ControleEstagio
+APIRest --> ControleMonitoria
+APIRest --> ControleTCC
+
+ControleAuth --> OAuth : autenticação
+ControleAuth --> RepoUsuarios
+
+ControleEstagio --> RepoEstagio
+ControleMonitoria --> RepoMonitoria
+ControleTCC --> RepoTCC
+
+ControleEstagio --> SIGA : validação de dados
+ControleTCC --> SIGA : validação
+ControleMonitoria --> SIGA : validação
+@enduml
+
+@startuml
+title Diagrama de Implantação - Sistema Acadêmico Integrado
+
+node "Usuário" {
+[Navegador Web]
+}
+
+node "Servidor Web (Nginx)" {
+[Front-end (HTML/JS)]
+}
+
+node "Servidor de Aplicação" {
+[Back-end Spring Boot]
+}
+
+node "Servidor de Banco de Dados" {
+database "PostgreSQL"
+}
+
+node "Serviços Externos" {
+[Google OAuth]
+[SIG@ API]
+}
+
+' CONEXÕES
+[Navegador Web] --> [Front-end (HTML/JS)]
+[Front-end (HTML/JS)] --> [Back-end Spring Boot] : via REST
+[Back-end Spring Boot] --> [PostgreSQL] : JDBC
+[Back-end Spring Boot] --> [Google OAuth] : OAuth2
+[Back-end Spring Boot] --> [SIG@ API] : consumo REST
+@enduml
+
+@startuml
+title Diagrama de Pacotes - Arquitetura Lógica
+
+package "Apresentação" {
+[TelaEstagio]
+[TelaMonitoria]
+[TelaTCC]
+[TelaLogin]
+}
+
+package "Controle" {
+[ControleEstagio]
+[ControleMonitoria]
+[ControleTCC]
+[ControleAutenticacao]
+}
+
+package "Entidades" {
+[Estagio]
+[Monitoria]
+[TCC]
+[Usuario]
+[Documento]
+}
+
+package "Persistência" {
+[DAOEstagio]
+[DAOMonitoria]
+[DAOTCC]
+[DAOUsuario]
+}
+
+package "Serviços Externos" {
+[Google OAuth]
+[SIG@ API]
+}
+
+'Todas as ligações
+[TelaEstagio] --> [ControleEstagio]
+[TelaMonitoria] --> [ControleMonitoria]
+[TelaTCC] --> [ControleTCC]
+[TelaLogin] --> [ControleAutenticacao]
+
+[ControleEstagio] --> [Estagio]
+[ControleMonitoria] --> [Monitoria]
+[ControleTCC] --> [TCC]
+[ControleAutenticacao] --> [Usuario]
+
+[ControleEstagio] --> [DAOEstagio]
+[ControleMonitoria] --> [DAOMonitoria]
+[ControleTCC] --> [DAOTCC]
+[ControleAutenticacao] --> [DAOUsuario]
+
+[ControleAutenticacao] --> [Google OAuth]
+[ControleEstagio] --> [SIG@ API]
+@enduml
