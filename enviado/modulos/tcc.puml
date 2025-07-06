@@ -1,0 +1,155 @@
+@startuml
+' Estilo
+skinparam classAttributeIconSize 0
+skinparam classFontSize 12
+skinparam classAttributeFontSize 11
+skinparam classMethodFontSize 11
+
+' =======================
+' ENTITY
+' =======================
+
+class TCC {
+
+id: int
+
+aluno: Aluno
+
+orientador: Professor
+
+tema: string
+
+status: string
+
+dataInicio: date
+
+dataConclusao: date
+}
+
+class DocumentoTCC {
+
+id: int
+
+tipo: string
+
+arquivo: string
+
+dataEnvio: date
+
+aluno: Aluno
+
+orientador: Professor
+
+status: string
+
+assinaturaOrientador: bool
+}
+
+class EditalTCC {
+
+id: int
+
+ano: int
+
+semestre: int
+
+dataPublicacao: date
+
+observacoes: string
+}
+
+class OfertaTemaOrientador {
+
+id: int
+
+orientador: Professor
+
+tema: string
+
+disponivel: bool
+}
+
+class ReuniaoTCC {
+
+id: int
+
+tcc: TCC
+
+dataHora: datetime
+
+local: string
+
+observacoes: string
+}
+
+' =======================
+' BOUNDARY
+' =======================
+
+class TelaSubmissaoDocumentosTCC {
+
+enviarDocumento(tipo: string, arquivo: string): void
+
+visualizarDocumentos(): void
+}
+
+class TelaSolicitacaoOrientacaoTCC {
+
+solicitarOrientacao(temaId: int): void
+
+acompanharSolicitacao(): void
+}
+
+class TelaGestaoEditalTCC {
+
+publicarEdital(): void
+
+visualizarEdital(): void
+}
+
+class TelaAgendaReunioesTCC {
+
+agendarReuniao(tccId: int, data: datetime): void
+
+visualizarReunioes(): void
+}
+
+class TelaAvaliacaoDocumentosTCC {
+
+avaliarDocumento(documentoId: int, parecer: string): void
+}
+
+' =======================
+' CONTROL
+' =======================
+
+class ControleTCC {
+
+submeterDocumento(alunoId: int, tipo: string, arquivo: string): void
+
+avaliarDocumento(documentoId: int, parecer: string): void
+
+criarEdital(ano: int, semestre: int): void
+
+oferecerTema(orientadorId: int, tema: string): void
+
+solicitarOrientacao(alunoId: int, ofertaId: int): void
+
+agendarReuniao(tccId: int, dataHora: datetime): void
+}
+
+' =======================
+' RELACIONAMENTOS
+' =======================
+
+TCC "1" -- "1" Aluno
+TCC "1" -- "1" Professor
+TCC "1" -- "0.." DocumentoTCC
+TCC "1" -- "0.." ReuniaoTCC
+DocumentoTCC "1" -- "1" Aluno
+DocumentoTCC "1" -- "1" Professor
+EditalTCC "1" -- "0..*" OfertaTemaOrientador
+OfertaTemaOrientador "1" -- "1" Professor
+ReuniaoTCC "1" -- "1" TCC
+
+@enduml
