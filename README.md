@@ -6,6 +6,11 @@
 Este projeto é uma aplicação desenvolvida como parte da disciplina **Análise e Projeto de Software** do curso de **Engenharia da Computação**.  
 Seu objetivo é integrar e gerenciar, em uma única plataforma, os módulos de **TCC**, **Estágio** e **Monitoria** para alunos, professores e coordenadores da faculdade.
 
+## 🎥 Demonstração em Vídeo
+
+[![Clique para assistir](https://img.youtube.com/vi/EpAGhnzRPUk/0.jpg)](https://youtu.be/EpAGhnzRPUk)
+
+
 ## 📌 Funcionalidades principais
 - **Autenticação via Google OAuth** (credenciais da universidade)
 - **Gestão de TCC**: Submissão de pré-projeto, versão final, solicitações de orientação e agendamento de reuniões.
@@ -31,7 +36,7 @@ Seu objetivo é integrar e gerenciar, em uma única plataforma, os módulos de *
 - [x] Modelagem de casos de uso
 - [x] Modelagem de classes
 - [x] Início do projeto de software
-- [ ] Desenvolvimento da aplicação
+- [x] Desenvolvimento do protótipo da aplicação
 
 ## 🤝 Contribuidores
 - Projeto acadêmico individual conduzido por Paulo Geraldo para a disciplina de Análise e Projeto de Software.
